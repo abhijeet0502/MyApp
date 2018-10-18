@@ -11,11 +11,12 @@ import { SignupPage } from "../pages/signup/signup";
 import { AboutUsPage } from "../pages/about-us/about-us";
 import { MyAccountPage } from "../pages/my-account/my-account";
 import { IonicStorageModule } from "@ionic/storage";
-
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { AuthServiceProvider } from "../providers/auth-service/auth-service";
 import { HttpClientModule } from "@angular/common/http";
+import { HomePage } from "../pages/home/home";
+import {InAppBrowser} from '@ionic-native/in-app-browser'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HttpClientModule } from "@angular/common/http";
     LoginPage,
     SignupPage,
     AboutUsPage,
-    MyAccountPage
+    MyAccountPage,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -48,13 +50,16 @@ import { HttpClientModule } from "@angular/common/http";
     LoginPage,
     SignupPage,
     AboutUsPage,
-    MyAccountPage
+    MyAccountPage,
+    HomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthServiceProvider
+    AuthServiceProvider,
+    InAppBrowser
+
   ]
 })
 export class AppModule {}

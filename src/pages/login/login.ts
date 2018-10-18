@@ -4,9 +4,10 @@ import {
   AlertController,
   LoadingController,
   Loading,
-  IonicPage
 } from "ionic-angular";
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
+import { TabsControllerPage } from "../tabs-controller/tabs-controller";
+import { SignupPage } from "../signup/signup";
 
 
 export class LoginCredentials {
@@ -25,6 +26,7 @@ export class LoginCredentials {
 export class LoginPage {
   loading: Loading;
   loginCredentials= new LoginCredentials();
+  signUp:any=SignupPage;
 
   constructor(
     private nav: NavController,
@@ -40,9 +42,9 @@ export class LoginPage {
     this.auth.login(this.loginCredentials).subscribe(
       allowed => {
         if (allowed) {
-          this.nav.setRoot("tabs-page")
+          this.nav.setRoot(TabsControllerPage)
         } else {
-          this.showError("Access Denied");
+          this.showError("Invalid username or password");
         }
       },
       error => {

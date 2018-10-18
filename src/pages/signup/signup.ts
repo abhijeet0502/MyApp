@@ -1,7 +1,28 @@
 import { Component } from "@angular/core";
-import { NavController, AlertController, IonicPage } from "ionic-angular";
+import { NavController, AlertController } from "ionic-angular";
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
-import { LoginCredentials } from "../login/login";
+
+
+
+export class Data{
+  name:string;
+  password:string;
+
+  constructor(){
+    this.name='';
+    this.password='';
+  }
+}
+
+export class RegisterCredentials{
+
+  email:string;
+  data=new Data();
+  constructor(){
+    
+    this.email='';
+  }
+}
 
 @Component({
   selector: "page-signup",
@@ -9,7 +30,7 @@ import { LoginCredentials } from "../login/login";
 })
 export class SignupPage {
   createSuccess = false;
-  registerCredentials = { email: "email@gmail.com", password: "pass" };
+  registerCredentials = new RegisterCredentials();
 
   constructor(
     private nav: NavController,

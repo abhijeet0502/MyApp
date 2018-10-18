@@ -9,28 +9,28 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page6">
-  <form id="signup-form2">
+  <form id="signup-form2" (ngSubmit)="register()" #registerForm="ngForm" >
     <ion-list id="signup-list2">
       <ion-item id="signup-input3">
         <ion-label>
           Name
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
+        <ion-input type="text" placeholder="Name"  name="name"[(ngModel)]="registerCredentials.name"></ion-input>
       </ion-item>
       <ion-item id="signup-input4">
         <ion-label>
           Email
         </ion-label>
-        <ion-input type="email" placeholder=""></ion-input>
+        <ion-input type="email" placeholder="abc@xyz.com" name="email" [(ngModel)]="registerCredentials.email"></ion-input>
       </ion-item>
       <ion-item id="signup-input5">
         <ion-label>
           Password
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
+        <ion-input type="password" placeholder="" name="password" [(ngModel)]="registerCredentials.password"></ion-input>
       </ion-item>
     </ion-list>
-    <button id="signup-button3" ion-button color="stable" block>
+    <button id="signup-button3" type="submit" ion-button color="stable" block [disabled]="!registerForm.form.valid">
       Sign up
     </button>
   </form>
