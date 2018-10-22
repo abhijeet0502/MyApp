@@ -35,31 +35,64 @@ export class AuthServiceProvider {
       return Observable.throw("Please insert credentials");
     } else {
       return Observable.create(observer => {
-        console.log(this.storage.get(credentials.email));
-        console.log(credentials);
-        console.log(this.storage.get('xyz@abc.com'))
+        console.log(this.storage.keys);
 
-        this.storage.get(credentials.email).then(val => {
-          password = val.password;
-          let access = credentials.password === password;
-          this.currentUser = new User(credentials.name, credentials.email);
-          console.log(access);
-          observer.next(access);
-          observer.complete();
-        });
+        this.storage
+          .get(credentials.email)
+          .then(val => {
+            if (val.password != null) {
+              password = val.password;
+            }
+            let access = credentials.password === password;
+            this.currentUser = new User(credentials.name, credentials.email);
+            console.log(access);
+            observer.next(access);
+            observer.complete();
+          })
+          .catch(error => {
+            let access = false;
+            observer.next(access);
+          });
       });
     }
   }
   public register(credentials) {
+    let emailAlreadyExits = false;
+
+    // this.storage.get(credentials.email).then(data => {
+    //   if (data) {
+    //     alert("exists");
+    //     emailAlreadyExits = true;
+    //   } else {
+    //     return Observable.create(observer => {
+    //       error => {
+    //         observer.next(false);
+    //         observer.complete();
+    //       };
+    //     });
+    //   }
+    // });
+
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
     } else {
-      this.storage.set(credentials.email,credentials);
+      this.storage.get(credentials.email).then(data => {
+        if (data) {
+          alert("exists");
+          emailAlreadyExits = true;
+          return false;
+          return Observable.create(observer => {
+            observer.next(false);
+            observer.complete();
+          });
 
-      // At this point store the credentials to your backend!
-      return Observable.create(observer => {
-        observer.next(true);
-        observer.complete();
+        } else {
+          this.storage.set(credentials.email, credentials);
+          return Observable.create(observer => {
+            observer.next(true);
+            observer.complete();
+          });
+        }
       });
     }
   }
